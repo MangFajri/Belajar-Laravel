@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 // Route untuk halaman utama (beranda)
@@ -22,6 +23,12 @@ Route::get('/about', function () {
 Route::view('/contact', 'pages.contact');
 // Menampilkan view 'contact' saat user mengakses URL '/contact'
 
-// Route untuk halaman product (produk)
-Route::view('/product', 'pages.product');
-// Menampilkan view 'product' saat user mengakses URL '/product'
+// satu controller untuk banyak methodD
+Route::get('/product',[ProdukController::class, 'index']);// read data menampilkan data produk
+
+Route::get('/product/create',[ProdukController::class, 'create']);// menampiplkan halaman form data
+Route::post('/product',[ProdukController::class, 'store']);// menyimpan data produk ke database
+Route::get('/product/{id}',[ProdukController::class, 'show']);// menampilkan detail produk berdasarkan id
+
+Route::get('/product/{id}/edit',[ProdukController::class, 'edit']);// menampilkan halaman form edit produk
+Route::put('/product/{id}',[ProdukController::class, 'update']);// mengupdate data produk berdasarkan id
