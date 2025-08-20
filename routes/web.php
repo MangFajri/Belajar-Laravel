@@ -32,3 +32,5 @@ Route::get('/product/{id}',[ProdukController::class, 'show']);// menampilkan det
 
 Route::get('/product/{id}/edit',[ProdukController::class, 'edit']);// menampilkan halaman form edit produk
 Route::put('/product/{id}',[ProdukController::class, 'update']);// mengupdate data produk berdasarkan id
+
+Route::delete('/product/{id}',[ProdukController::class, 'destroy']);// menghapus data produk berdasarkan id

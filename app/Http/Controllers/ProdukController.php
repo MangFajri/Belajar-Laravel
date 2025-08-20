@@ -8,15 +8,21 @@ use \Illuminate\Support\Facades\DB;
 class ProdukController extends Controller
 {
     // Fungsi untuk menampilkan halaman daftar produk
-    public function index()
+    public function index(Request $request)
     {
         $toko = [
            'nama_toko' => 'Toko Kink Reyhan',
            'alamat' => 'Isekai',
            'type' => 'Online'
         ];  
+
+        $search = $request->keyword;
+
         // Mengirim data toko ke view 'pages.product'
-        $produk = produk::get();//query untuk mengambil semua data produk yang ada di tb_produk
+        $produk = produk::when($search,function($query,$search){
+            return $query->where('nama_produk','like',"%{$search}%");
+            
+        })->get();//query untuk mengambil semua data produk yang ada di tb_produk
         //$queryBuilder = DB::table('tb_produk')->get(); // Menggunakan query builder untuk mengambil data produk
         
         return view('pages.produk.show',[
@@ -117,5 +123,11 @@ class ProdukController extends Controller
         ]);
 
         return redirect('product')->with('messege','berhasil mengupdate data'); // Mengarahkan kembali ke halaman produk dengan pesan sukses
+    }
+
+    public function destroy($id){
+        // query untuk menghapus data produk berdasarkan ID
+        produk::findOrFail($id)->delete();
+        return redirect('/product')->with('messege', 'Berhasil menghapus data produk'); // Mengarahkan kembali ke halaman produk dengan pesan sukses
     }
 }

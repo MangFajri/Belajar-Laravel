@@ -3,7 +3,7 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        height: 50px;
+        height: 40px;
         width: 100%;
         background-color: #000000;
         color: #fefefe;
